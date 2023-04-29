@@ -22,7 +22,7 @@ public class Frogger extends PApplet {
     public void draw() {
     	background(20,20,20);
     	fill(255, 0, 0);
-    	ellipse(200, 200, 100, 100);
+    	ellipse(x, y, 100, 100);
     	
     }
     
@@ -40,22 +40,22 @@ public class Frogger extends PApplet {
             	
             {
             	//Frog Y position goes up
-                y++;
+                y-=5;
             }
             else if(keyCode == DOWN)
             {
                 //Frog Y position goes down 
-            	y--;
+            	y+=5;
             }
             else if(keyCode == RIGHT)
             {
                 //Frog X position goes right
-            	x++;
+            	x+=5;
             }
             else if(keyCode == LEFT)
             {
                 //Frog X position goes left
-            	x--;
+            	x-=5;
             }
         }
     }
