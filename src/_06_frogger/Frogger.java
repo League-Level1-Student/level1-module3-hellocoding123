@@ -37,19 +37,19 @@ public class Frogger extends PApplet {
     	back = loadImage("/Users/league/git/level1-module3-hellocoding123/src/_06_frogger/froggerBackground.png");
     	back.resize(WIDTH, HEIGHT);
         carLeft = loadImage("/Users/league/git/level1-module3-hellocoding123/src/_06_frogger/carLeft.png");
-        carLeft.resize(160,100);
+        carLeft.resize(160,65);
         carRight = loadImage("/Users/league/git/level1-module3-hellocoding123/src/_06_frogger/carRight.png");
-        carRight.resize(160,100);
+        carRight.resize(160,65);
         frog = loadImage("/Users/league/git/level1-module3-hellocoding123/src/_06_frogger/frog.png");
         frog.resize(20,20);
-    	car = new Car(width,200,2,50);
-    	car2 = new Car(-50,150,5,50);
-    	car3 = new Car(width,0,3,50);
-    	car4 = new Car(-50,50,1,50);
-    	car5 = new Car(width,100,4,50);
-    	car6 = new Car(-50,250,5,50);
-    	car7 = new Car(width,300,3,50);
-    	car8 = new Car(-50,425,1,50);
+    	car = new Car(width,200,2,160, "left");
+    	car2 = new Car(-50,150,5,160, "right");
+    	car3 = new Car(width,0,3,160, "left");
+    	car4 = new Car(-50,-50,1,160, "right");
+    	car5 = new Car(width,100,4,160, "left");
+    	car6 = new Car(-50,250,5,160, "right");
+    	car7 = new Car(width,300,3,160, "left");
+    	car8 = new Car(-50,425,1,160, "right");
     	
     }
 
@@ -67,14 +67,14 @@ public class Frogger extends PApplet {
     	car7.display();
     	car8.display();
 
-    	car.moveLeft();
-    	car2.moveRight();
-    	car3.moveLeft();
-    	car4.moveRight();
-    	car5.moveLeft();
-    	car6.moveRight();
-    	car7.moveLeft();
-    	car8.moveRight();
+    	car.move();
+    	car2.move();
+    	car3.move();
+    	car4.move();
+    	car5.move();
+    	car6.move();
+    	car7.move();
+    	car8.move();
 
     	if (intersects(car)||intersects(car2)||intersects(car3)||intersects(car4)||intersects(car5)||intersects(car6)||intersects(car7)||intersects(car8)) {
     		 x = width/2;
@@ -83,7 +83,7 @@ public class Frogger extends PApplet {
     	
     }
     	boolean intersects(Car car) {
-    		 if ((y > car.getY() && y < car.getY()+15) &&
+    		 if ((y > car.getY() && y < car.getY()+65) &&
     		                (x > car.getX() && x < car.getX()+car.getSize())) {
     		   return true;
     		  }
@@ -133,11 +133,17 @@ public class Frogger extends PApplet {
 		private int y;
 		private int speed;
 		private int size;
+		private String direction;
 		
 		void display()
 		{
 		   fill(0,255,0);
-		   rect(x , y,  size, 15);
+		   if (direction.equals("left")) {
+			   image (carLeft, x, y);
+		   }
+		   else {
+			   image (carRight, x, y);
+		   }
 		}
 		
 		void moveLeft() {
@@ -156,6 +162,15 @@ public class Frogger extends PApplet {
 			}
 		}
 		
+		void move() {
+			if (direction.equals("left")) {
+				   moveLeft();
+			   }
+			   else {
+				   moveRight();
+			   }
+		}
+		
 		int getX() {
 			return x;
 		}
@@ -169,12 +184,13 @@ public class Frogger extends PApplet {
 		}
 
 		
-		public Car(int x, int y, int speed, int size) {
+		public Car(int x, int y, int speed, int size, String direction) {
 			
 			this.x = x;
 			this.y = y;
 			this.speed = speed;
 			this.size = size;
+			this.direction = direction;
 			
 		}
 		
